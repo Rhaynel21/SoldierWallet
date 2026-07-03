@@ -386,7 +386,7 @@ const styles = StyleSheet.create({
   mpinLink: { color: colors.blueRoyal, fontWeight: '800', fontSize: 15 },
 
   authRoot: { flex: 1, backgroundColor: colors.bg },
-  authScroll: { padding: 22, paddingTop: 20 },
+  authScroll: { padding: 22, paddingTop: 20, width: '100%', maxWidth: 520, alignSelf: 'center' },
   authBrand: { alignItems: 'center', marginBottom: 26 },
   authLogo: { marginBottom: 12 },
   authTitle: { fontSize: 26, fontWeight: '800', color: colors.ink },

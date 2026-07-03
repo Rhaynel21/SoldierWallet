@@ -123,7 +123,7 @@ export default function HomeScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  content: { padding: 18, paddingBottom: 30 },
+  content: { padding: 18, paddingBottom: 30, width: '100%', maxWidth: 520, alignSelf: 'center' },
   header: { flexDirection: 'row', alignItems: 'center', marginBottom: 16 },
   headerId: { flexDirection: 'row', alignItems: 'center', gap: 12, flex: 1 },
   avatar: {

@@ -69,7 +69,7 @@ export default function ProfileScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  content: { padding: 18, paddingBottom: 30 },
+  content: { padding: 18, paddingBottom: 30, width: '100%', maxWidth: 520, alignSelf: 'center' },
   head: { alignItems: 'center', paddingBottom: 20 },
   avatar: {
     width: 84,

@@ -154,7 +154,7 @@ function VoucherCard({ voucher, user, onCancel }) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  content: { padding: 18, paddingBottom: 40 },
+  content: { padding: 18, paddingBottom: 40, width: '100%', maxWidth: 520, alignSelf: 'center' },
 
   hero: { backgroundColor: colors.red, borderRadius: radius.lg, padding: 22, marginBottom: 20, overflow: 'hidden', ...shadow.red },
   heroLabel: { color: 'rgba(255,255,255,0.9)', fontSize: 12, fontWeight: '600', letterSpacing: 1 },

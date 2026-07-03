@@ -106,6 +106,44 @@ h3 {
     gap: 8px;
   }
 }
+/* Very small phones (e.g. iPhone SE / 320px) */
+@media (max-width: 340px) {
+  .page {
+    padding: 12px 11px 22px;
+  }
+  .wallet-card {
+    padding: 18px;
+  }
+  .wallet-balance {
+    font-size: 27px;
+  }
+  .actions {
+    gap: 8px;
+  }
+  .send-item,
+  .qr-menu-row {
+    padding: 14px 12px;
+  }
+  .cat-label {
+    font-size: 10px;
+  }
+}
+/* Large screens: present the app as a centered device */
+@media (min-width: 600px) {
+  body {
+    padding: 24px 0;
+  }
+  .phone {
+    min-height: calc(100dvh - 48px);
+    border-radius: 30px;
+    overflow: hidden;
+  }
+  /* Keep the fixed nav aligned to the centered phone frame */
+  .bottom-nav {
+    bottom: 24px;
+    border-radius: 0 0 30px 30px;
+  }
+}
 @keyframes rise {
   from {
     opacity: 0;

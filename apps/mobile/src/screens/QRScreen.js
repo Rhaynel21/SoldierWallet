@@ -402,7 +402,7 @@ function QrTopbar({ title, onBack, dark }) {
 const styles = StyleSheet.create({
   lightRoot: { flex: 1, backgroundColor: colors.bg },
   blueRoot: { flex: 1, backgroundColor: colors.blueRoyal },
-  content: { padding: 18, paddingBottom: 40 },
+  content: { padding: 18, paddingBottom: 40, width: '100%', maxWidth: 520, alignSelf: 'center' },
 
   qrTopbar: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', paddingVertical: 12 },
   qrTopbarTitle: { color: '#fff', fontWeight: '700', fontSize: 17 },

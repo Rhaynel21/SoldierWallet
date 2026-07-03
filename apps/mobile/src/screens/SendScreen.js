@@ -383,7 +383,7 @@ function Bank({ onBack, goHome, goScan }) {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
   center: { alignItems: 'center', justifyContent: 'center', padding: 22 },
-  content: { padding: 18, paddingBottom: 40 },
+  content: { padding: 18, paddingBottom: 40, width: '100%', maxWidth: 520, alignSelf: 'center' },
 
   sendSection: { fontSize: 19, fontWeight: '800', color: colors.ink, marginTop: 16, marginBottom: 12, marginHorizontal: 2 },
   sendHelp: { fontSize: 13, color: colors.inkSoft, marginHorizontal: 2, marginBottom: 14, lineHeight: 20, marginTop: -4 },

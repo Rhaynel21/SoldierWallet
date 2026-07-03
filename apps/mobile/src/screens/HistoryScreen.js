@@ -55,7 +55,7 @@ export default function HistoryScreen({ navigation }) {
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: colors.bg },
-  content: { padding: 18, paddingBottom: 30 },
+  content: { padding: 18, paddingBottom: 30, width: '100%', maxWidth: 520, alignSelf: 'center' },
   segmented: {
     flexDirection: 'row',
     backgroundColor: '#e6e8f2',
