@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SALUDO",
-    "slug": "bayanihanfund",
+    "slug": "saludo",
     "owner": "innovex",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -10,7 +10,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "updates": {
-      "url": "https://u.expo.dev/34536074-b5a4-421f-898d-fb61ed39be20"
+      "url": "https://u.expo.dev/ac3c5493-93f7-4946-a7af-7ad37a5b336f"
     },
     "runtimeVersion": {
       "policy": "appVersion"
@@ -58,7 +58,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "34536074-b5a4-421f-898d-fb61ed39be20"
+        "projectId": "ac3c5493-93f7-4946-a7af-7ad37a5b336f"
       }
     }
   }
