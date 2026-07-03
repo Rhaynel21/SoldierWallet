@@ -2,6 +2,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack'
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Pressable, StyleSheet, Text, View } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 import HomeScreen from '../screens/HomeScreen.js'
 import BenefitsScreen from '../screens/BenefitsScreen.js'
@@ -34,13 +35,15 @@ function QrTabButton({ children, onPress }) {
 }
 
 function Tabs() {
+  const insets = useSafeAreaInsets()
+  const bottom = Math.max(insets.bottom, 10)
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
         headerShown: false,
         tabBarActiveTintColor: colors.blueRoyal,
         tabBarInactiveTintColor: colors.inkFaint,
-        tabBarStyle: styles.tabBar,
+        tabBarStyle: [styles.tabBar, { height: 58 + bottom, paddingBottom: bottom }],
         tabBarLabelStyle: { fontSize: 11, fontWeight: '600' },
         tabBarIcon: ({ color, size, focused }) =>
           route.name === 'QR' ? null : (
@@ -79,9 +82,7 @@ export default function RootNavigator() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    height: 64,
-    paddingTop: 6,
-    paddingBottom: 8,
+    paddingTop: 8,
     borderTopColor: colors.line,
     backgroundColor: 'rgba(255,255,255,0.98)',
   },

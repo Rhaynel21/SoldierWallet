@@ -10,6 +10,7 @@ import {
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import QRCode from 'react-native-qrcode-svg'
+import { Ionicons } from '@expo/vector-icons'
 
 import { useWallet } from '../store/WalletContext.js'
 import { peso, shortDate } from '../utils/format.js'
@@ -18,12 +19,12 @@ import { AmountInput, BalancePill, Button, Field, PageHeader, SectionTitle } fro
 import { colors, radius, shadow } from '../theme.js'
 
 const categories = [
-  { key: 'Medical', icon: '🏥', label: 'Medical & Hospital', merchants: ['AFP Medical Center (V. Luna)', 'St. Luke’s Medical Center', 'Philippine General Hospital', 'Makati Medical Center'] },
-  { key: 'Pharmacy', icon: '💊', label: 'Pharmacy & Medicine', merchants: ['Mercury Drug', 'Watsons', 'Rose Pharmacy', 'Southstar Drug'] },
-  { key: 'Groceries', icon: '🛒', label: 'Groceries & Supermarket', merchants: ['SM Supermarket', 'Puregold', 'Robinsons Supermarket', 'AFP Commissary'] },
-  { key: 'Education', icon: '🎓', label: 'Education & Tuition', merchants: ['AFP Educational Benefit', 'University of the Philippines', 'PUP', 'Local School'] },
-  { key: 'Fuel & Transport', icon: '⛽', label: 'Fuel & Transport', merchants: ['Petron', 'Shell', 'Caltex', 'Grab / Transport'] },
-  { key: 'Utilities', icon: '💡', label: 'Utilities & Bills', merchants: ['Meralco', 'Maynilad', 'PLDT', 'Converge'] },
+  { key: 'Medical', icon: 'medkit', label: 'Medical & Hospital', merchants: ['AFP Medical Center (V. Luna)', 'St. Luke’s Medical Center', 'Philippine General Hospital', 'Makati Medical Center'] },
+  { key: 'Pharmacy', icon: 'medical', label: 'Pharmacy & Medicine', merchants: ['Mercury Drug', 'Watsons', 'Rose Pharmacy', 'Southstar Drug'] },
+  { key: 'Groceries', icon: 'cart', label: 'Groceries & Supermarket', merchants: ['SM Supermarket', 'Puregold', 'Robinsons Supermarket', 'AFP Commissary'] },
+  { key: 'Education', icon: 'school', label: 'Education & Tuition', merchants: ['AFP Educational Benefit', 'University of the Philippines', 'PUP', 'Local School'] },
+  { key: 'Fuel & Transport', icon: 'car', label: 'Fuel & Transport', merchants: ['Petron', 'Shell', 'Caltex', 'Grab / Transport'] },
+  { key: 'Utilities', icon: 'bulb', label: 'Utilities & Bills', merchants: ['Meralco', 'Maynilad', 'PLDT', 'Converge'] },
 ]
 
 export default function BenefitsScreen({ navigation }) {
@@ -55,7 +56,7 @@ export default function BenefitsScreen({ navigation }) {
           {categories.map((c) => (
             <Pressable key={c.key} style={styles.cat} onPress={() => setOpenCat(c.key)}>
               <View style={styles.catIcon}>
-                <Text style={{ fontSize: 21 }}>{c.icon}</Text>
+                <Ionicons name={c.icon} size={22} color={colors.blueRoyal} />
               </View>
               <Text style={styles.catLabel}>{c.label}</Text>
             </Pressable>
@@ -86,7 +87,7 @@ function CategoryPage({ category, onBack }) {
     <SafeAreaView style={styles.root} edges={['top']}>
       <KeyboardAvoidingView style={{ flex: 1 }} behavior={Platform.OS === 'ios' ? 'padding' : undefined}>
         <ScrollView contentContainerStyle={styles.content} keyboardShouldPersistTaps="handled">
-          <PageHeader title={`${category.icon} ${category.label}`} onBack={onBack} />
+          <PageHeader title={category.label} onBack={onBack} />
           <BalancePill>Available: {peso(benefits)}</BalancePill>
 
           {active.length > 0 ? (
@@ -98,9 +99,7 @@ function CategoryPage({ category, onBack }) {
             </View>
           ) : (
             <View style={styles.cardForm}>
-              <SectionTitle>
-                {category.icon} Generate {category.key} QR
-              </SectionTitle>
+              <SectionTitle>Generate {category.key} QR</SectionTitle>
               <View style={{ gap: 15 }}>
                 <Field label="Accredited partner">
                   <Dropdown value={merchant} options={category.merchants} onChange={setMerchant} label="Accredited partner" />
@@ -142,9 +141,12 @@ function VoucherCard({ voucher, user, onCancel }) {
         <Text style={styles.voucherId}>Voucher {voucher.id}</Text>
         <Text style={styles.voucherId}>Issued {shortDate(voucher.createdAt)}</Text>
       </View>
-      <Text style={styles.voucherHint}>
-        📷 Ask the cashier to scan this QR to charge your benefits.
-      </Text>
+      <View style={styles.voucherHint}>
+        <Ionicons name="camera-outline" size={15} color={colors.inkSoft} />
+        <Text style={styles.voucherHintText}>
+          Ask the cashier to scan this QR to charge your benefits.
+        </Text>
+      </View>
       <Button title="Cancel" variant="ghost" onPress={onCancel} />
     </View>
   )
@@ -179,5 +181,6 @@ const styles = StyleSheet.create({
   },
   voucherHospital: { fontWeight: '600', marginTop: 2, color: colors.ink },
   voucherId: { fontSize: 12, color: colors.inkSoft },
-  voucherHint: { fontSize: 12, color: colors.inkSoft, backgroundColor: '#f5f6fb', borderRadius: 11, padding: 10, marginVertical: 14, lineHeight: 18, textAlign: 'center', alignSelf: 'stretch' },
+  voucherHint: { flexDirection: 'row', alignItems: 'center', justifyContent: 'center', gap: 6, backgroundColor: '#f5f6fb', borderRadius: 11, padding: 10, marginVertical: 14, alignSelf: 'stretch' },
+  voucherHintText: { fontSize: 12, color: colors.inkSoft, lineHeight: 18, flexShrink: 1 },
 })

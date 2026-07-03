@@ -78,7 +78,7 @@ export default function HomeScreen({ navigation }) {
         <Pressable style={styles.benefitStrip} onPress={() => navigation.navigate('Benefits')}>
           <View style={styles.benefitAccent} />
           <View style={styles.benefitIcon}>
-            <Text style={{ fontSize: 20 }}>🛡️</Text>
+            <Ionicons name="shield-checkmark" size={20} color={colors.red} />
           </View>
           <View style={{ flex: 1 }}>
             <Text style={styles.benefitLabel}>Benefits Wallet</Text>

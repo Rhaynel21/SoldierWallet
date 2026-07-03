@@ -118,11 +118,13 @@ function Receive({ onBack }) {
         </View>
 
         <View style={styles.myqrActions}>
-          <Pressable onPress={() => receiveMoney({ amount: amt > 0 ? amt : 100, from: 'Juan (demo)' })}>
-            <Text style={styles.myqrActionText}>⬇ Simulate receive</Text>
+          <Pressable style={styles.myqrAction} onPress={() => receiveMoney({ amount: amt > 0 ? amt : 100, from: 'Juan (demo)' })}>
+            <Ionicons name="arrow-down-circle-outline" size={18} color="#fff" />
+            <Text style={styles.myqrActionText}>Simulate receive</Text>
           </Pressable>
-          <Pressable onPress={() => Share.share({ message: 'My SALUDO QR' })}>
-            <Text style={styles.myqrActionText}>⤴ Share QR</Text>
+          <Pressable style={styles.myqrAction} onPress={() => Share.share({ message: 'My SALUDO QR' })}>
+            <Ionicons name="share-outline" size={18} color="#fff" />
+            <Text style={styles.myqrActionText}>Share QR</Text>
           </Pressable>
         </View>
         <Text style={styles.footNote}>Cash Wallet balance: {peso(cash)}</Text>
@@ -324,12 +326,12 @@ function Scanner({ onBack, onGenerate }) {
 
 /* ---------- Commute ---------- */
 const fares = [
-  { mode: 'Jeepney', fare: 13, icon: '🚐' },
-  { mode: 'Bus', fare: 15, icon: '🚌' },
-  { mode: 'MRT / LRT', fare: 25, icon: '🚆' },
-  { mode: 'Tricycle', fare: 20, icon: '🛺' },
-  { mode: 'Grab / Taxi', fare: 180, icon: '🚕' },
-  { mode: 'UV Express', fare: 50, icon: '🚙' },
+  { mode: 'Jeepney', fare: 13, icon: 'car' },
+  { mode: 'Bus', fare: 15, icon: 'bus' },
+  { mode: 'MRT / LRT', fare: 25, icon: 'train' },
+  { mode: 'Tricycle', fare: 20, icon: 'bicycle' },
+  { mode: 'Grab / Taxi', fare: 180, icon: 'car-sport' },
+  { mode: 'UV Express', fare: 50, icon: 'car-outline' },
 ]
 
 function Commute({ onBack, navigation }) {
@@ -372,7 +374,7 @@ function Commute({ onBack, navigation }) {
                   setDone(f)
                 }}
               >
-                <Text style={{ fontSize: 30 }}>{f.icon}</Text>
+                <Ionicons name={f.icon} size={28} color={colors.blueRoyal} />
                 <Text style={styles.fareMode}>{f.mode}</Text>
                 <Text style={styles.fareAmt}>{peso(f.fare)}</Text>
               </Pressable>
@@ -423,6 +425,7 @@ const styles = StyleSheet.create({
   addAmountFilled: { backgroundColor: colors.blueRoyal },
   addAmountText: { color: colors.blueRoyal, fontWeight: '800', fontSize: 16 },
   myqrActions: { flexDirection: 'row', justifyContent: 'center', gap: 46, marginTop: 26 },
+  myqrAction: { flexDirection: 'row', alignItems: 'center', gap: 6 },
   myqrActionText: { color: '#fff', fontWeight: '700', fontSize: 15 },
   footNote: { textAlign: 'center', color: 'rgba(255,255,255,0.85)', fontSize: 12, marginTop: 16 },
 
