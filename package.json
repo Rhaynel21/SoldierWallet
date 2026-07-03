@@ -1,0 +1,15 @@
+{
+  "name": "saludo",
+  "private": true,
+  "version": "1.0.0",
+  "description": "SALUDO — GCash-inspired e-wallet for AFP personnel (web + mobile + backend)",
+  "scripts": {
+    "start": "concurrently -n backend,web -c green,cyan \"npm run start --prefix apps/backend\" \"npm run start --prefix apps/web\"",
+    "dev": "concurrently -n backend,web -c green,cyan \"npm run dev --prefix apps/backend\" \"npm run dev --prefix apps/web\"",
+    "mobile": "npm start --prefix apps/mobile",
+    "install:all": "npm install && npm install --prefix apps/backend && npm install --prefix apps/web && npm install --prefix apps/mobile"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
+}

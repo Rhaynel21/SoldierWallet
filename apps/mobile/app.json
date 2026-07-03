@@ -1,0 +1,58 @@
+{
+  "expo": {
+    "name": "SALUDO",
+    "slug": "saludo",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "scheme": "saludo",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1a1a8c"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ph.saludo.app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "SALUDO uses the camera to scan QR codes for payments."
+      }
+    },
+    "android": {
+      "package": "ph.saludo.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#ffffff"
+      },
+      "permissions": ["CAMERA"]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "SALUDO uses the camera to scan QR codes for payments."
+        }
+      ],
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/splash-icon.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#1a1a8c"
+        }
+      ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "8ef5b74b-6c58-4609-a8fa-20ff70a700ab"
+      }
+    }
+  }
+}
