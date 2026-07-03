@@ -161,10 +161,10 @@ const styles = StyleSheet.create({
   heroAmount: { color: '#fff', fontSize: 34, fontWeight: '800', marginVertical: 6 },
   heroSub: { color: 'rgba(255,255,255,0.92)', fontSize: 13, lineHeight: 20, maxWidth: '88%' },
 
-  catGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginBottom: 20 },
+  catGrid: { flexDirection: 'row', flexWrap: 'wrap', justifyContent: 'space-between', rowGap: 12, marginBottom: 20 },
   cat: {
-    width: '31.5%', backgroundColor: '#fff', borderWidth: 1.5, borderColor: colors.line,
-    borderRadius: radius.md, paddingVertical: 13, paddingHorizontal: 6, alignItems: 'center', gap: 7, ...shadow.sm,
+    width: '31.5%', minHeight: 104, backgroundColor: '#fff', borderWidth: 1.5, borderColor: colors.line,
+    borderRadius: radius.md, paddingVertical: 14, paddingHorizontal: 6, alignItems: 'center', justifyContent: 'center', gap: 8, ...shadow.sm,
   },
   catIcon: { width: 40, height: 40, borderRadius: 12, backgroundColor: '#f4f5fb', alignItems: 'center', justifyContent: 'center' },
   catLabel: { fontSize: 11, fontWeight: '600', color: colors.ink, textAlign: 'center', lineHeight: 14 },
