@@ -1,0 +1,58 @@
+name: EAS Update
+
+# Publishes an over-the-air EAS Update for the mobile app (apps/mobile).
+# Runs headless using an Expo access token — no browser login needed.
+#
+# One-time setup:
+#   1. Create a token at https://expo.dev/settings/access-tokens
+#   2. In GitHub: Settings -> Secrets and variables -> Actions -> New repository
+#      secret named EXPO_TOKEN with that value.
+# Then this runs automatically on pushes to apps/mobile, or manually via
+# "Run workflow".
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'apps/mobile/**'
+  workflow_dispatch:
+    inputs:
+      branch:
+        description: 'EAS Update branch (e.g. preview, production)'
+        required: true
+        default: 'preview'
+      message:
+        description: 'Update message'
+        required: false
+        default: 'Manual update via GitHub Actions'
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: apps/mobile
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Setup EAS
+        uses: expo/expo-github-action@v8
+        with:
+          eas-version: latest
+          token: ${{ secrets.EXPO_TOKEN }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Publish EAS Update
+        run: >-
+          eas update
+          --branch ${{ github.event.inputs.branch || 'preview' }}
+          --message "${{ github.event.inputs.message || format('Deploy {0}', github.sha) }}"
+          --non-interactive
