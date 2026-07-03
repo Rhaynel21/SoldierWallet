@@ -8,6 +8,12 @@
     "scheme": "saludo",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "updates": {
+      "url": "https://u.expo.dev/ac3c5493-93f7-4946-a7af-7ad37a5b336f"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -51,7 +57,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "8ef5b74b-6c58-4609-a8fa-20ff70a700ab"
+        "projectId": "ac3c5493-93f7-4946-a7af-7ad37a5b336f"
       }
     }
   }
