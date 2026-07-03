@@ -9,7 +9,7 @@
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "updates": {
-      "url": "https://u.expo.dev/ac3c5493-93f7-4946-a7af-7ad37a5b336f"
+      "url": "https://u.expo.dev/34536074-b5a4-421f-898d-fb61ed39be20"
     },
     "runtimeVersion": {
       "policy": "appVersion"
@@ -57,7 +57,7 @@
     ],
     "extra": {
       "eas": {
-        "projectId": "ac3c5493-93f7-4946-a7af-7ad37a5b336f"
+        "projectId": "34536074-b5a4-421f-898d-fb61ed39be20"
       }
     }
   }
