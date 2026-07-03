@@ -1,0 +1,29 @@
+# Render Blueprint — deploys the SALUDO OTP backend (apps/backend) as a
+# free web service with a permanent public URL.
+#
+# Deploy:
+#   1. Push this repo to GitHub (done).
+#   2. Go to https://dashboard.render.com -> New -> Blueprint -> pick this repo.
+#   3. Render reads this file and creates the "saludo-otp" service.
+#   4. Set the SEMAPHORE_API_KEY (and optional SEMAPHORE_SENDER) env vars
+#      in the Render dashboard when prompted (values from apps/backend/.env).
+#   5. After it goes live, copy the service URL (e.g. https://saludo-otp.onrender.com).
+#
+# Note: the free plan cold-starts after ~15 min idle (first request ~50s) and
+# stores OTPs in memory, which is fine for send->verify within a few minutes.
+services:
+  - type: web
+    name: saludo-otp
+    runtime: node
+    rootDir: apps/backend
+    plan: free
+    region: singapore
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    autoDeploy: true
+    envVars:
+      - key: SEMAPHORE_API_KEY
+        sync: false
+      - key: SEMAPHORE_SENDER
+        sync: false
