@@ -1,9 +1,15 @@
 import { useEffect } from 'react'
 import * as Location from 'expo-location'
+import { doc, setDoc } from 'firebase/firestore'
 import { useWallet } from '../store/WalletContext.js'
+import { db, firebaseEnabled } from '../firebase.js'
 
 // Captures the soldier's GPS location after login and saves it to their account
 // (so the superadmin can see soldier locations in Reports). Renders nothing.
+//
+// Writes DIRECTLY to Firestore with { merge: true } so the location can never be
+// dropped by the general write-through / snapshot-sync race; also updates local
+// state so the app reflects it immediately.
 export default function LocationTracker() {
   const { authedId, updateLocation } = useWallet()
 
@@ -19,12 +25,16 @@ export default function LocationTracker() {
           accuracy: Location.Accuracy.Balanced,
         })
         if (cancelled) return
-        updateLocation({
+        const location = {
           lat: pos.coords.latitude,
           lng: pos.coords.longitude,
-          accuracy: pos.coords.accuracy,
+          accuracy: pos.coords.accuracy ?? null,
           updatedAt: new Date().toISOString(),
-        })
+        }
+        updateLocation(location)
+        if (firebaseEnabled && db) {
+          setDoc(doc(db, 'accounts', authedId), { location }, { merge: true }).catch(() => {})
+        }
       } catch {
         // ignore — location is best-effort
       }

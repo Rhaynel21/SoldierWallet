@@ -59,6 +59,18 @@ export default function Reports() {
       (wallet === 'all' || t.wallet === wallet),
   )
 
+  // Export category selection (independent of the on-screen view filter).
+  const allCats = Array.from(new Set(r.audit.map((t) => t.label)))
+  const [exportSel, setExportSel] = useState(null) // null = all categories
+  const selected = exportSel ?? new Set(allCats)
+  const exportRows = r.audit.filter((t) => selected.has(t.label))
+  const toggleCat = (cat) => {
+    const next = new Set(exportSel ?? allCats)
+    if (next.has(cat)) next.delete(cat)
+    else next.add(cat)
+    setExportSel(next)
+  }
+
   function exportCSV() {
     const header = [
       'Date',
@@ -77,7 +89,7 @@ export default function Reports() {
       return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s
     }
     const lines = [header.join(',')]
-    for (const t of shownAudit) {
+    for (const t of exportRows) {
       lines.push(
         [t.date, t.owner, t.rank, t.type, t.label, t.wallet, t.direction, t.amount, t.id, t.title]
           .map(esc)
@@ -89,9 +101,7 @@ export default function Reports() {
     const a = document.createElement('a')
     const slug = (s) => String(s).replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase()
     const parts = ['saludo-audit']
-    if (account !== 'all') parts.push(slug(account))
-    if (wallet !== 'all') parts.push(wallet)
-    if (filter !== 'all') parts.push(slug(filter))
+    if (selected.size < allCats.length) parts.push(Array.from(selected).map(slug).join('-'))
     parts.push(new Date().toISOString().slice(0, 10))
     a.href = url
     a.download = `${parts.join('-')}.csv`
@@ -120,9 +130,29 @@ export default function Reports() {
         System-wide overview across all {r.totalUsers} accounts.
       </div>
 
-      <div className="report-actions">
-        <button className="btn primary" onClick={exportCSV}>⬇ Export CSV ({shownAudit.length})</button>
-        <button className="btn ghost" onClick={() => window.print()}>🖨 Print</button>
+      <div className="export-panel">
+        <div className="export-cats-head">
+          <span className="export-cats-label">Categories to export</span>
+          <div className="export-quick">
+            <button className="export-quick-btn" onClick={() => setExportSel(new Set(allCats))}>All</button>
+            <button className="export-quick-btn" onClick={() => setExportSel(new Set())}>None</button>
+          </div>
+        </div>
+        <div className="export-chips">
+          {allCats.length === 0 && <span className="export-empty">No transactions yet</span>}
+          {allCats.map((cat) => (
+            <label key={cat} className={selected.has(cat) ? 'export-chip on' : 'export-chip'}>
+              <input type="checkbox" checked={selected.has(cat)} onChange={() => toggleCat(cat)} />
+              {cat}
+            </label>
+          ))}
+        </div>
+        <div className="report-actions">
+          <button className="btn primary" onClick={exportCSV} disabled={exportRows.length === 0}>
+            ⬇ Export CSV ({exportRows.length})
+          </button>
+          <button className="btn ghost" onClick={() => window.print()}>🖨 Print</button>
+        </div>
       </div>
 
       <div className="report-grid">
