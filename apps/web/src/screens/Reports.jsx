@@ -70,6 +70,15 @@ export default function Reports() {
     else next.add(cat)
     setExportSel(next)
   }
+  const [exportOpen, setExportOpen] = useState(false)
+  const exportLabel =
+    allCats.length === 0
+      ? 'No categories'
+      : selected.size === allCats.length
+        ? 'All categories'
+        : selected.size === 0
+          ? 'None selected'
+          : `${selected.size} categories`
 
   function exportCSV() {
     const header = [
@@ -131,21 +140,32 @@ export default function Reports() {
       </div>
 
       <div className="export-panel">
-        <div className="export-cats-head">
-          <span className="export-cats-label">Categories to export</span>
-          <div className="export-quick">
-            <button className="export-quick-btn" onClick={() => setExportSel(new Set(allCats))}>All</button>
-            <button className="export-quick-btn" onClick={() => setExportSel(new Set())}>None</button>
-          </div>
-        </div>
-        <div className="export-chips">
-          {allCats.length === 0 && <span className="export-empty">No transactions yet</span>}
-          {allCats.map((cat) => (
-            <label key={cat} className={selected.has(cat) ? 'export-chip on' : 'export-chip'}>
-              <input type="checkbox" checked={selected.has(cat)} onChange={() => toggleCat(cat)} />
-              {cat}
-            </label>
-          ))}
+        <span className="export-cats-label">Categories to export</span>
+        <div className="export-dropdown">
+          <button
+            className={exportOpen ? 'report-select export-btn open' : 'report-select export-btn'}
+            onClick={() => setExportOpen((o) => !o)}
+          >
+            {exportLabel}
+          </button>
+          {exportOpen && (
+            <div className="export-menu">
+              <div className="export-menu-head">
+                <span>Select categories</span>
+                <div className="export-quick">
+                  <button className="export-quick-btn" onClick={() => setExportSel(new Set(allCats))}>All</button>
+                  <button className="export-quick-btn" onClick={() => setExportSel(new Set())}>None</button>
+                </div>
+              </div>
+              {allCats.length === 0 && <div className="export-empty">No transactions yet</div>}
+              {allCats.map((cat) => (
+                <label key={cat} className="export-opt">
+                  <input type="checkbox" checked={selected.has(cat)} onChange={() => toggleCat(cat)} />
+                  <span>{cat}</span>
+                </label>
+              ))}
+            </div>
+          )}
         </div>
         <div className="report-actions">
           <button className="btn primary" onClick={exportCSV} disabled={exportRows.length === 0}>

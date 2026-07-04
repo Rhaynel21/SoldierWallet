@@ -2631,13 +2631,51 @@ h3 {
   box-shadow: var(--sh-sm);
   margin-bottom: 16px;
 }
-.export-cats-head {
+.export-cats-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink-faint);
+  margin-bottom: 6px;
+}
+.export-dropdown {
+  position: relative;
+  margin-bottom: 14px;
+}
+.export-btn {
+  width: 100%;
+  text-align: left;
+}
+.export-btn::after {
+  content: '▾';
+  position: absolute;
+  right: 26px;
+  color: var(--blue-royal);
+}
+.export-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  left: 0;
+  right: 0;
+  z-index: 30;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--sh-md);
+  padding: 8px;
+  max-height: 280px;
+  overflow-y: auto;
+  animation: rise 0.15s ease;
+}
+.export-menu-head {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 10px;
+  padding: 6px 8px 10px;
 }
-.export-cats-label {
+.export-menu-head > span {
   font-size: 11px;
   font-weight: 800;
   text-transform: uppercase;
@@ -2657,40 +2695,30 @@ h3 {
   padding: 4px 10px;
   border-radius: 12px;
 }
-.export-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-bottom: 14px;
-}
 .export-empty {
   font-size: 12.5px;
   color: var(--ink-soft);
+  padding: 8px;
 }
-.export-chip {
-  display: inline-flex;
+.export-opt {
+  display: flex;
   align-items: center;
-  gap: 6px;
-  border: 1.5px solid var(--line);
-  background: var(--field, #fafbfe);
-  color: var(--ink-soft);
-  font-size: 12.5px;
-  font-weight: 700;
-  padding: 7px 12px;
-  border-radius: 20px;
+  gap: 10px;
+  padding: 10px 8px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink);
   cursor: pointer;
-  transition: all 0.15s ease;
 }
-.export-chip input {
-  width: 14px;
-  height: 14px;
+.export-opt:hover {
+  background: #f2f4fb;
+}
+.export-opt input {
+  width: 17px;
+  height: 17px;
   accent-color: var(--blue-royal);
   margin: 0;
-}
-.export-chip.on {
-  border-color: var(--blue-royal);
-  background: #eef0ff;
-  color: var(--blue-royal);
 }
 .report-actions {
   display: flex;
