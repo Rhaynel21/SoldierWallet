@@ -383,6 +383,9 @@ export function WalletProvider({ children }) {
       benefits: cur.benefits || 0,
       vouchers: cur.vouchers || [],
       transactions: cur.transactions || [],
+      role: cur.role || 'user',
+      // full account data (for admin reports)
+      allAccounts: state.accounts,
       // auth
       authedId: state.authedId,
       lastPhone: state.lastPhone,

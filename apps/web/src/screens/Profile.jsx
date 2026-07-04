@@ -3,8 +3,9 @@ import { useWallet } from '../store/WalletContext.jsx'
 import { peso } from '../utils/format.js'
 
 export default function Profile() {
-  const { user, cash, benefits, transactions, logout } = useWallet()
+  const { user, cash, benefits, transactions, logout, role } = useWallet()
   const navigate = useNavigate()
+  const isAdmin = role === 'admin' || role === 'superadmin'
 
   const rows = [
     { label: 'Account No.', value: user.accountNo },
@@ -47,6 +48,13 @@ export default function Profile() {
           </div>
         ))}
       </div>
+
+      {isAdmin && (
+        <button className="admin-link" onClick={() => navigate('/reports')}>
+          <span>📊 View Reports</span>
+          <span>›</span>
+        </button>
+      )}
 
       <button className="profile-logout" onClick={logout}>
         Log out

@@ -1333,7 +1333,35 @@ h3 {
 .tx-sub {
   font-size: 12px;
   color: var(--ink-soft);
-  margin-top: 1px;
+  margin-top: 2px;
+}
+.tx-label {
+  display: inline-block;
+  font-size: 10px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 1px 7px;
+  border-radius: 8px;
+  margin-right: 2px;
+  background: var(--blue-tint, #e9e9fb);
+  color: var(--blue-royal);
+  vertical-align: middle;
+}
+.tx-label.label-in {
+  background: #e9e9fb;
+  color: var(--blue-royal);
+}
+.tx-label.label-out {
+  background: #fdeaec;
+  color: var(--red);
+}
+.tx-id {
+  font-size: 10.5px;
+  color: var(--ink-faint);
+  margin-top: 3px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 .tx-amount {
   font-weight: 700;
@@ -2515,4 +2543,141 @@ h3 {
 .scan-demo .amount-input {
   background: #fff;
   border: none;
+}
+
+/* ===== Admin Reports ===== */
+.report-banner {
+  background: #eef0ff;
+  border: 1px solid #dfe3ff;
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  font-size: 13px;
+  color: var(--ink-soft);
+  line-height: 1.5;
+  margin-bottom: 16px;
+}
+.report-role {
+  display: inline-block;
+  background: var(--blue-royal);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 8px;
+  margin-right: 8px;
+  vertical-align: middle;
+}
+.report-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.report-card {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-md);
+  padding: 14px;
+  box-shadow: var(--sh-sm);
+}
+.report-card-label {
+  font-size: 12px;
+  color: var(--ink-soft);
+}
+.report-card-value {
+  font-size: 19px;
+  font-weight: 800;
+  margin-top: 4px;
+  letter-spacing: -0.01em;
+}
+.report-section-title {
+  font-size: 15px;
+  font-weight: 800;
+  margin: 20px 2px 10px;
+}
+.report-tx {
+  position: relative;
+}
+.report-tx-owner {
+  position: absolute;
+  right: 15px;
+  bottom: 8px;
+  font-size: 10.5px;
+  font-weight: 700;
+  color: var(--blue-royal);
+}
+/* Admin entry point on Profile */
+.admin-link {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  border: 1px solid #dfe3ff;
+  background: #eef0ff;
+  color: var(--blue-royal);
+  font-weight: 800;
+  font-size: 15px;
+  padding: 15px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+}
+.report-actions {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.report-actions .btn {
+  flex: 1;
+}
+.report-count {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-faint);
+  margin-left: 6px;
+}
+.audit-list {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  box-shadow: var(--sh-sm);
+}
+.audit-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--line);
+}
+.audit-row:last-child {
+  border-bottom: none;
+}
+.audit-main {
+  flex: 1;
+  min-width: 0;
+}
+.audit-top {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.audit-owner {
+  font-size: 11.5px;
+  font-weight: 700;
+  color: var(--blue-royal);
+}
+.audit-title {
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.audit-meta {
+  font-size: 11px;
+  color: var(--ink-faint);
+  margin-top: 2px;
 }
