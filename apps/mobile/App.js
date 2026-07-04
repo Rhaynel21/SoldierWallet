@@ -8,6 +8,7 @@ import { WalletProvider, useWallet } from './src/store/WalletContext.js'
 import RootNavigator from './src/navigation/RootNavigator.js'
 import SplashScreen from './src/screens/SplashScreen.js'
 import AuthScreen from './src/screens/AuthScreen.js'
+import LocationTracker from './src/components/LocationTracker.js'
 
 SplashScreenNative.preventAutoHideAsync().catch(() => {})
 
@@ -34,6 +35,7 @@ function Root() {
 
   return (
     <NavigationContainer>
+      <LocationTracker />
       <RootNavigator />
     </NavigationContainer>
   )

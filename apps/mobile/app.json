@@ -25,7 +25,8 @@
       "supportsTablet": true,
       "bundleIdentifier": "ph.saludo.app",
       "infoPlist": {
-        "NSCameraUsageDescription": "SALUDO uses the camera to scan QR codes for payments."
+        "NSCameraUsageDescription": "SALUDO uses the camera to scan QR codes for payments.",
+        "NSLocationWhenInUseUsageDescription": "SALUDO records your location so your unit can see where personnel are."
       }
     },
     "android": {
@@ -34,7 +35,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "permissions": ["CAMERA"]
+      "permissions": ["CAMERA", "ACCESS_FINE_LOCATION", "ACCESS_COARSE_LOCATION"]
     },
     "web": {
       "favicon": "./assets/favicon.png",
@@ -53,6 +54,12 @@
           "image": "./assets/splash-icon.png",
           "resizeMode": "contain",
           "backgroundColor": "#1a1a8c"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationWhenInUsePermission": "SALUDO records your location so your unit can see where personnel are."
         }
       ]
     ],

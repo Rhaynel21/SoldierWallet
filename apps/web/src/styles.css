@@ -2637,6 +2637,40 @@ h3 {
   color: var(--ink-faint);
   margin-left: 6px;
 }
+.report-filters {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  margin-bottom: 10px;
+  scrollbar-width: none;
+}
+.report-filters::-webkit-scrollbar {
+  display: none;
+}
+.report-chip {
+  flex: 0 0 auto;
+  border: 1px solid var(--line);
+  background: #fff;
+  color: var(--ink-soft);
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 7px 13px;
+  border-radius: 20px;
+  white-space: nowrap;
+}
+.report-chip.active {
+  background: var(--blue-royal);
+  border-color: var(--blue-royal);
+  color: #fff;
+}
+.map-link {
+  color: var(--blue-royal);
+  font-weight: 700;
+  font-size: 13px;
+  text-decoration: none;
+  white-space: nowrap;
+}
 .audit-list {
   background: #fff;
   border: 1px solid var(--line);

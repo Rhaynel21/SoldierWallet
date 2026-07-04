@@ -308,6 +308,17 @@ function reducer(state, action) {
         ),
       }))
 
+    case 'UPDATE_LOCATION':
+      return updateCurrent(state, (a) => ({
+        ...a,
+        location: {
+          lat: action.payload.lat,
+          lng: action.payload.lng,
+          accuracy: action.payload.accuracy ?? null,
+          updatedAt: action.payload.updatedAt,
+        },
+      }))
+
     case 'REPLACE_ACCOUNTS':
       return { ...state, accounts: action.payload.accounts }
 
@@ -408,6 +419,9 @@ export function WalletProvider({ children }) {
           (a) => phone10(a.mobile) === phone10(phone) && a.pin === String(pin),
         )
         if (!acc) return { ok: false, error: 'Maling phone number o PIN.' }
+        // Admin / superadmin accounts are web-only (they use the web dashboard).
+        if (acc.role === 'admin' || acc.role === 'superadmin')
+          return { ok: false, error: 'Admin account — mag-login sa web dashboard.' }
         dispatch({ type: 'SET_AUTH', payload: { id: acc.id } })
         return { ok: true }
       },
@@ -438,6 +452,7 @@ export function WalletProvider({ children }) {
         cash: a.cash,
       })),
       switchAccount: (id) => dispatch({ type: 'SWITCH_ACCOUNT', payload: { id } }),
+      updateLocation: (payload) => dispatch({ type: 'UPDATE_LOCATION', payload }),
       sendMoney: (payload) => dispatch({ type: 'SEND_MONEY', payload }),
       cashIn: (payload) => dispatch({ type: 'CASH_IN', payload }),
       receiveMoney: (payload) => dispatch({ type: 'RECEIVE_MONEY', payload }),

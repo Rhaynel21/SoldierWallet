@@ -1,4 +1,4 @@
-import { useMemo } from 'react'
+import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useWallet } from '../store/WalletContext.jsx'
 import { peso, shortDate } from '../utils/format.js'
@@ -48,6 +48,10 @@ export default function Reports() {
     }
   }, [allAccounts])
 
+  const [filter, setFilter] = useState('all')
+  const filters = ['all', ...Array.from(new Set(r.audit.map((t) => t.label)))]
+  const shownAudit = filter === 'all' ? r.audit : r.audit.filter((t) => t.label === filter)
+
   function exportCSV() {
     const header = [
       'Date',
@@ -66,7 +70,7 @@ export default function Reports() {
       return /[",\n]/.test(s) ? '"' + s.replace(/"/g, '""') + '"' : s
     }
     const lines = [header.join(',')]
-    for (const t of r.audit) {
+    for (const t of shownAudit) {
       lines.push(
         [t.date, t.owner, t.rank, t.type, t.label, t.wallet, t.direction, t.amount, t.id, t.title]
           .map(esc)
@@ -149,12 +153,63 @@ export default function Reports() {
         ))}
       </div>
 
+      <h3 className="report-section-title">Soldier Locations</h3>
+      <div className="profile-list">
+        {r.accts.filter((a) => (a.role || 'user') === 'user').length === 0 && (
+          <p className="empty">No soldiers yet.</p>
+        )}
+        {r.accts
+          .filter((a) => (a.role || 'user') === 'user')
+          .map((a) => (
+            <div className="profile-row" key={a.id}>
+              <span className="profile-row-label">
+                <b>{a.name}</b>
+                <br />
+                {a.location
+                  ? `${a.location.lat.toFixed(5)}, ${a.location.lng.toFixed(5)}`
+                  : 'No location yet'}
+                {a.location?.updatedAt ? (
+                  <>
+                    <br />
+                    <span className="audit-meta">Updated {shortDate(a.location.updatedAt)}</span>
+                  </>
+                ) : null}
+              </span>
+              <span className="profile-row-value">
+                {a.location ? (
+                  <a
+                    className="map-link"
+                    href={`https://www.google.com/maps?q=${a.location.lat},${a.location.lng}`}
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    View map ›
+                  </a>
+                ) : (
+                  '—'
+                )}
+              </span>
+            </div>
+          ))}
+      </div>
+
       <h3 className="report-section-title">
-        Audit Trail <span className="report-count">{r.audit.length} entries</span>
+        Audit Trail <span className="report-count">{shownAudit.length} entries</span>
       </h3>
+      <div className="report-filters">
+        {filters.map((f) => (
+          <button
+            key={f}
+            className={filter === f ? 'report-chip active' : 'report-chip'}
+            onClick={() => setFilter(f)}
+          >
+            {f === 'all' ? 'All' : f}
+          </button>
+        ))}
+      </div>
       <div className="audit-list">
-        {r.audit.length === 0 && <p className="empty">No transactions yet.</p>}
-        {r.audit.map((t) => (
+        {shownAudit.length === 0 && <p className="empty">No transactions in this category.</p>}
+        {shownAudit.map((t) => (
           <div className="audit-row" key={t.id}>
             <div className="audit-main">
               <div className="audit-top">
