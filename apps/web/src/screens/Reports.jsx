@@ -49,8 +49,15 @@ export default function Reports() {
   }, [allAccounts])
 
   const [filter, setFilter] = useState('all')
+  const [account, setAccount] = useState('all')
+  const [wallet, setWallet] = useState('all')
   const filters = ['all', ...Array.from(new Set(r.audit.map((t) => t.label)))]
-  const shownAudit = filter === 'all' ? r.audit : r.audit.filter((t) => t.label === filter)
+  const shownAudit = r.audit.filter(
+    (t) =>
+      (filter === 'all' || t.label === filter) &&
+      (account === 'all' || t.owner === account) &&
+      (wallet === 'all' || t.wallet === wallet),
+  )
 
   function exportCSV() {
     const header = [
@@ -80,8 +87,14 @@ export default function Reports() {
     const blob = new Blob([lines.join('\n')], { type: 'text/csv;charset=utf-8;' })
     const url = URL.createObjectURL(blob)
     const a = document.createElement('a')
+    const slug = (s) => String(s).replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '').toLowerCase()
+    const parts = ['saludo-audit']
+    if (account !== 'all') parts.push(slug(account))
+    if (wallet !== 'all') parts.push(wallet)
+    if (filter !== 'all') parts.push(slug(filter))
+    parts.push(new Date().toISOString().slice(0, 10))
     a.href = url
-    a.download = `saludo-audit-trail-${new Date().toISOString().slice(0, 10)}.csv`
+    a.download = `${parts.join('-')}.csv`
     a.click()
     URL.revokeObjectURL(url)
   }
@@ -108,7 +121,7 @@ export default function Reports() {
       </div>
 
       <div className="report-actions">
-        <button className="btn primary" onClick={exportCSV}>⬇ Export CSV</button>
+        <button className="btn primary" onClick={exportCSV}>⬇ Export CSV ({shownAudit.length})</button>
         <button className="btn ghost" onClick={() => window.print()}>🖨 Print</button>
       </div>
 
@@ -196,17 +209,70 @@ export default function Reports() {
       <h3 className="report-section-title">
         Audit Trail <span className="report-count">{shownAudit.length} entries</span>
       </h3>
-      <div className="report-filters">
-        {filters.map((f) => (
-          <button
-            key={f}
-            className={filter === f ? 'report-chip active' : 'report-chip'}
-            onClick={() => setFilter(f)}
-          >
-            {f === 'all' ? 'All' : f}
-          </button>
-        ))}
+      <div className="report-filter-row">
+        <label className="report-field">
+          <span className="report-field-label">Soldier</span>
+          <div className="report-select-wrap">
+            <select
+              className="report-select"
+              value={account}
+              onChange={(e) => setAccount(e.target.value)}
+            >
+              <option value="all">All soldiers</option>
+              {r.accts.map((a) => (
+                <option key={a.id} value={a.name}>
+                  {a.name}
+                </option>
+              ))}
+            </select>
+          </div>
+        </label>
+        <label className="report-field">
+          <span className="report-field-label">Wallet</span>
+          <div className="report-select-wrap">
+            <select
+              className="report-select"
+              value={wallet}
+              onChange={(e) => setWallet(e.target.value)}
+            >
+              <option value="all">All wallets</option>
+              <option value="cash">Cash</option>
+              <option value="benefits">Benefits</option>
+            </select>
+          </div>
+        </label>
+        <label className="report-field">
+          <span className="report-field-label">Category</span>
+          <div className="report-select-wrap">
+            <select
+              className="report-select"
+              value={filter}
+              onChange={(e) => setFilter(e.target.value)}
+            >
+              <option value="all">All categories</option>
+              {filters
+                .filter((f) => f !== 'all')
+                .map((f) => (
+                  <option key={f} value={f}>
+                    {f}
+                  </option>
+                ))}
+            </select>
+          </div>
+        </label>
       </div>
+      {(filter !== 'all' || account !== 'all' || wallet !== 'all') && (
+        <button
+          className="report-clear"
+          onClick={() => {
+            setFilter('all')
+            setAccount('all')
+            setWallet('all')
+          }}
+        >
+          Clear filters
+        </button>
+      )}
       <div className="audit-list">
         {shownAudit.length === 0 && <p className="empty">No transactions in this category.</p>}
         {shownAudit.map((t) => (
